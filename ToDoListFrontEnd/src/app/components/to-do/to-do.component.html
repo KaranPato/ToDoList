@@ -1,0 +1,35 @@
+<div class="container">
+    <button *ngIf="!isAdd" type="button" name="add" class="btn btn-primary" (click)="isAdd = true; taskName = ''">Add Task</button>
+    <button *ngIf="isAdd" type="button" name="List" class="btn btn-primary" (click)="isAdd = false;">View List</button>
+
+    <ng-container *ngIf="!isAdd">
+        <h3>To Do List</h3>
+        <section class="container">
+            <ng-container *ngFor="let todo of toDoList">
+                <div class="card">
+                    <div class="card-body">
+                        <input class="form-control" type="checkbox" [checked]="todo.taskStatus === true ? true: null"
+                            (change)="onChecked(todo.taskId, $event.target.checked)" name="todo.taskName + checkbox"
+                            id="todo.taskId">
+                        <p [ngClass]="{strike: todo.taskStatus === true}">{{todo.taskName}}</p>
+                    </div>
+                </div>
+            </ng-container>
+        </section>
+    </ng-container>
+
+    <ng-container *ngIf="isAdd">
+        <section class="container">
+            <h2>Add Tasks</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="taskName" id="task" [(ngModel)]="taskName"
+                            placeholder="What's your task for today?" required>
+                        <button class="btn btn-danger mt-2" type="submit" (click)="addTask()">Add</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </ng-container>
+</div>
